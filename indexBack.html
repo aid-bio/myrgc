@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <title>Amit_circo_plot</title>
+    </head>
+
+    <body>
+        <!-- NGCircos.js, Jquery.js and D3.js import -->
+        <script src="./lib/jquery.js"></script>
+        <script src="./lib/d3.js"></script>
+        <script src="./lib/NGCircos.js"></script>
+        <!-- Prepare a <div> tag with "NGCircos" id to set the picture position your will draw in html -->
+        <div id="NGCircos"></div>
+<!-- Data configuration -->
+<script src="./karyotype.human.hg19.js"></script>
+<script src="./REPEATS.js"></script>
+<script src="./GENES.js"></script>
+<!-- Genome configuration -->
+<script>
+  var NGCircosGenome = [
+    [
+     ["1" , 248956422],
+     ["2" , 242193529],
+     ["3" , 198295559],
+     ["4" , 190214555],
+     ["5" , 181538259],
+     ["6" , 170805979],
+     ["7" , 159345973],
+     ["8" , 145138636],
+     ["9" , 138394717],
+     ["10" , 133797422],
+     ["11" , 135086622],
+     ["12" , 133275309],
+     ["13" , 114364328],
+     ["14" , 107043718],
+     ["15" , 101991189],
+     ["16" , 90338345],
+     ["17" , 83257441],
+     ["18" , 80373285],
+     ["19" , 58617616],
+     ["20" , 64444167],
+     ["21" , 46709983],
+     ["22" , 50818468],
+     ["X" , 156040895],
+     ["Y" , 57227415]
+    ]
+  ];
+  NGCircos01 = new NGCircos(ARC_hg19,BACKGROUND01,BACKGROUND02,BACKGROUND03,LINE03,LINE01,SNP04_gwascatalog,NGCircosGenome,{
+     target : "NGCircos",
+     svgWidth : 900,
+     svgHeight : 600,
+     chrPad : 0.04,
+     innerRadius: 246,
+     outerRadius: 270,
+     SNPMouseOverDisplay : true,
+     SNPMouseOverColor : "red",
+     SNPMouseOverCircleSize : 5,
+     SNPMouseOverCircleOpacity : 1.0,
+     SNPMouseOverCircleStrokeColor : "#F26223",
+     SNPMouseOverCircleStrokeWidth : 3,
+     SNPMouseOverTooltipsHtml01 : "chr : ",
+     SNPMouseOverTooltipsHtml02 : "<br>position : ",
+     SNPMouseOverTooltipsHtml03 : "<br>-log10(Pvalue) : ",
+     SNPMouseOverTooltipsHtml04 : "<br>rsid : ",
+     SNPMouseOverTooltipsHtml05 : "",
+     SNPMouseOverTooltipsBorderWidth : 1,
+     SNPMouseOutDisplay : true,
+     SNPMouseOutAnimationTime : 700,
+     SNPMouseOutColor : "none",
+     SNPMouseOutCircleSize : "none",
+     SNPMouseOutCircleOpacity : 1.0,
+     SNPMouseOutCircleStrokeWidth : 0,
+
+  });
+  NGCircos01.draw_genome(NGCircos01.genomeLength);
+  NGCircos01.draw_genome(NGCircos01.genomeLength2); // NGCircos2.js callback second time
+</script>
+
+<script src=../lib/saveSvgAsPng.js></script>
+<script>
+
+   (function(){
+      var downloadImg = getEle(".download-img"),
+         imgName = getEle("."+NGCircos01.svgClassName);
+
+      //                                  imgScale = getEle(".img-scale");
+
+      downloadImg.addEventListener("click",function(){
+         var mySvg = getEle("."+NGCircos01.svgClassName),
+            //iImgScale = parseInt(imgScale.value) || 1,
+            oImgName = imgName.value || NGCircos01.svgClassName;
+
+      //                                  saveSvgAsPng(mySvg, oImgName+".png", iImgScale);
+         saveSvgAsPng(mySvg, oImgName+".png");
+
+      })
+
+      function getEle(obj){
+         var d = document;
+         return d.querySelector(obj);
+      }
+   })()
+
+</script>
+
+    </body>
+
+
+</html>
